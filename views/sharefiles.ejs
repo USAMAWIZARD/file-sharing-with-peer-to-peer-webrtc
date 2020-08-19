@@ -1,0 +1,69 @@
+
+<html>
+    <head>
+      <title>Sharing files using WebRTC</title>
+   <script src="/socket.io/socket.io.js"></script>
+  <script src="/simplepeer.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+      <h1 id="myid"></h1>
+    <form action="/connect" method="post">
+      <input type="name" name="hisid">
+      <input type="hidden" name="myid" value=>
+      <input type="submit" value="connect">
+
+
+    </form>  
+  
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="caller" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="caller">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <div class="modal-footer">
+          <center>
+            <button type="button" onclick="socket.emit('accept',document.getElementById('caller').innerHTML);acceptcall(getElementById('caller').innerHTML)" class="btn btn-success" data-dismiss="modal" id="answer">answer</button>
+            <button type="button" onclick="socket.emit('reject',document.getElementById('caller').innerHTML)" class="btn btn-danger" data-dismiss="modal" id="reject"> reject</button>
+          </center>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <button type="button" id="displaypopup" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong" ></button>
+
+    </body>
+
+    <script>
+      
+   socket=io.connect()
+    if(document.cookie['name']==undefined){
+    }
+    socket.on("myrandomid",function(myrandomid){
+    document.getElementById("myid").innerHTML="enter this id in other  device :" +myrandomid + "<br >OR Enter Other divice id in this box To Start sharing" 
+    document.getElementsByName("myid")[0].value=myrandomid
+  })
+  socket.on("makeconnection",function(hisid){
+    document.getElementById("caller").innerHTML=hisid
+    document.getElementById("displaypop")
+    
+  })
+    
+
+
+    </script>
+  </html>
+
+  
