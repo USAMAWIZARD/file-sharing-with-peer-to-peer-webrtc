@@ -36,14 +36,26 @@ socket.on("disconnect",()=>{
 
 delete connectedclients[Object.keys(connectedclients)[Object.values(connectedclients).indexOf(socket.id)]]
 })
+socket.on("sendrequest",function(whometosend){
+  socket.to(connectedclients[whometosend[1]]).emit("makeconnection",whometosend[0])
+})
+socket.on("accept",function(whoesrequest){
+  socket.to(connectedclients[whoesrequest[0]]).emit("accepted",whoesrequest[1])
+  //isinitiator
+})
+socket.on("reject",function(whoesrequest){
+  socket.to(connectedclients[whoesrequest[0]]).emit("rejected",whoesrequest[1])
+})
+socket.on("peerid",function(pdatatowhom){
+  console.log("dic",pdatatowhom["data"])
+  socket.to(connectedclients[pdatatowhom["to"]]).emit("peerid",pdatatowhom["data"])
+})
 })
 
 
 server.get('/',function(req,res){
     res.render("sharefiles")
 })  
-server.post("/connect",function(req,res){
-  socket.to(req.body.hisid).emit("makeconnection",req.name.myid)
-})
+
 
 
