@@ -147,15 +147,18 @@
   function sendfiles() {
     selectedfilearray.forEach(file => {
       console.log(file["name"])
-
+   
       file.arrayBuffer().then(
         filedata => {
           peer.send(file["name"])
           chunksize = 100 * 1024
+          totalsize=filedata.byteLength
           while (filedata.byteLength) {
             tosend = filedata.slice(0, chunksize)
             filedata = filedata.slice(chunksize, filedata.byteLength)
             peer.send(tosend)
+            document.getElementById(file["name"]).value=totalsize-filedata.byteLength
+
           }
           peer.send("done")
 
@@ -164,7 +167,7 @@
 
   }
   function displayonUI(fname, fsize) {    //this will not allow multifile  with same name i will change it in future to allow multiple file wiht same name
-    document.getElementById("filetable").innerHTML += `<tr><td>${fname}<tdfadsf><td>${fsize}</td><td><button id='${fname}'>remove</button></td><td><progress id=${fname} value="0" max="${fsize}"> </progress></td><tr>`
+    document.getElementById("filetable").innerHTML += `<tr><td>${fname}<tdfadsf><td>${fsize}</td><td><button name='${fname}'>remove</button></td><td><progress id=${fname} value="0" max="${fsize}"> </progress></td><tr>`
   }
   function isfilealreadyselected(filetocheck) {
     isduplicate = false
