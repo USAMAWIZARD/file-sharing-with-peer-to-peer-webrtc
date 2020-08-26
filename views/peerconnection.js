@@ -22,6 +22,7 @@ peer.on("connect", () => {
 sendingfilename = true;
 var filerecived = [];
 var fileblob;
+
 peer.on("data", (data) => {
   if (sendingfilename) {
     filename = data.toString();

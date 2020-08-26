@@ -18,7 +18,7 @@
 <body>
   <h1 id="myid"></h1>
 
-  <input type="name" name="hisid">
+  <input type="number" name="hisid">
   <input type="hidden" name="myid" value=>
   <input type="button" value="connect" onclick="sendrequest()">
 
@@ -58,14 +58,20 @@
     <th>
       remove file
     </th>
+    <th>
+      fileprogress
+    </th>
+    <tbody id="filetable">
+    <tbody>
+
   </table>
-  <input type="file" multiple="multiple" id="f1"></input>
+  <input type="file" multiple="multiple" id="f1" onchange="addfilestoarray()"></input>
   <button onclick="sendfiles()">send</button>
 
 </body>
 
 <script>
-
+  var selectedfilearray = []
   var jsElm = document.createElement("script");
   var towhomconnect
 
@@ -135,24 +141,53 @@
     document.body.append(jsElm);
 
   }
-  function sendfiles() {
-    var file = document.getElementById("f1")
-  
-    file=file.files[0]
-    peer.send(file.name)
-    file.arrayBuffer().then(
-      filedata => {
-        chunksize = 50 * 1024
-        while (filedata.byteLength) {
-          tosend = filedata.slice(0, chunksize)
-          filedata = filedata.slice(chunksize, filedata.byteLength)
-          peer.send(tosend)
-        }
-        peer.send("done")
 
-      })
+
+
+  function sendfiles() {
+    selectedfilearray.forEach(file => {
+      console.log(file["name"])
+
+      file.arrayBuffer().then(
+        filedata => {
+          peer.send(file["name"])
+          chunksize = 100 * 1024
+          while (filedata.byteLength) {
+            tosend = filedata.slice(0, chunksize)
+            filedata = filedata.slice(chunksize, filedata.byteLength)
+            peer.send(tosend)
+          }
+          peer.send("done")
+
+        })
+    })
 
   }
+  function displayonUI(fname, fsize) {    //this will not allow multifile  with same name i will change it in future to allow multiple file wiht same name
+    document.getElementById("filetable").innerHTML += `<tr><td>${fname}<tdfadsf><td>${fsize}</td><td><button id='${fname}'>remove</button></td><td><progress id=${fname} value="0" max="${fsize}"> </progress></td><tr>`
+  }
+  function isfilealreadyselected(filetocheck) {
+    isduplicate = false
+    selectedfilearray.forEach(file => {
+      if (file["name"] == filetocheck["name"] && file["lastmodified"] == filetocheck["namlastmodifiede"]) {
+        isduplicate = true
+      }
+    })
+    if(!isduplicate)
+    displayonUI(filetocheck["name"], filetocheck["size"])
+    return isduplicate
+  }
+
+
+  function addfilestoarray() {
+    var file = document.getElementById("f1")
+    Object.values(file.files).forEach(eachfile => {
+      if (!isfilealreadyselected(eachfile))
+        selectedfilearray.push(eachfile)
+    });
+    console.log(selectedfilearray)
+  }
+
 
 </script>
 
