@@ -17,6 +17,7 @@ function callpeertoconnect(pid) {
 
 peer.on("connect", () => {
   console.log("CONNECT");
+  document.getElementById("connected").innerHTML="you are connected"
 });
 
 sendingfilename = true;

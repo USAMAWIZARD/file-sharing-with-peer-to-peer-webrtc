@@ -16,6 +16,7 @@
 </head>
 
 <body>
+  <div id="connected"></div>
   <h1 id="myid"></h1>
 
   <input type="number" name="hisid">
@@ -68,6 +69,7 @@
   <input type="file" multiple="multiple" id="f1" onchange="addfilestoarray()"></input>
   <button onclick="sendfiles()">send</button>
 
+  
 </body>
 
 <script>
@@ -97,7 +99,7 @@
     if (whosrequest == document.getElementsByName("hisid")[0].value) {
       towhomconnect = whosrequest
       console.log(whosrequest)
-      alert("accepted")
+      // alert("accepted")
       showconnecting()
       isinitiator = false
 
@@ -147,18 +149,20 @@
   function sendfiles() {
     selectedfilearray.forEach(file => {
       console.log(file["name"])
-   
       file.arrayBuffer().then(
         filedata => {
           peer.send(file["name"])
           chunksize = 100 * 1024
-          totalsize=filedata.byteLength
+          totalsize = filedata.byteLength
           while (filedata.byteLength) {
             tosend = filedata.slice(0, chunksize)
             filedata = filedata.slice(chunksize, filedata.byteLength)
             peer.send(tosend)
-            document.getElementById(file["name"]).value=totalsize-filedata.byteLength
-
+            
+            document.getElementById(file["name"]).setAttribute("style","width:"+(totalsize - filedata.byteLength)/totalsize*100+"%") 
+            document.getElementById(file["name"]).innerHTML=(totalsize - filedata.byteLength)/totalsize*100
+            console.log(document.getElementById(file["name"]))
+      
           }
           peer.send("done")
 
@@ -167,7 +171,7 @@
 
   }
   function displayonUI(fname, fsize) {    //this will not allow multifile  with same name i will change it in future to allow multiple file wiht same name
-    document.getElementById("filetable").innerHTML += `<tr><td>${fname}<tdfadsf><td>${fsize}</td><td><button name='${fname}'>remove</button></td><td><progress id=${fname} value="0" max="${fsize}"> </progress></td><tr>`
+    document.getElementById("filetable").innerHTML += `<tr><td>${fname}<tdfadsf><td>${fsize}</td><td><button name='${fname}'>remove</button></td><td><div class="progress">  <div class="progress-bar" role="progressbar" style="width: 0.1%;"  id="${fname}"  </div></div></td><tr>`
   }
   function isfilealreadyselected(filetocheck) {
     isduplicate = false
@@ -176,8 +180,8 @@
         isduplicate = true
       }
     })
-    if(!isduplicate)
-    displayonUI(filetocheck["name"], filetocheck["size"])
+    if (!isduplicate)
+      displayonUI(filetocheck["name"], filetocheck["size"])
     return isduplicate
   }
 
@@ -191,7 +195,9 @@
     console.log(selectedfilearray)
   }
 
+function removefilefromarray(){
 
+}
 </script>
 
 </html>
