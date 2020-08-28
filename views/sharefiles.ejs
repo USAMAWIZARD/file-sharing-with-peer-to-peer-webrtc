@@ -159,9 +159,9 @@
             filedata = filedata.slice(chunksize, filedata.byteLength)
             peer.send(tosend)
             
-            document.getElementById(file["name"]).setAttribute("style","width:"+(totalsize - filedata.byteLength)/totalsize*100+"%") 
-            document.getElementById(file["name"]).innerHTML=(totalsize - filedata.byteLength)/totalsize*100
-            console.log(document.getElementById(file["name"]))
+            document.getElementsByName(file["name"])[1].setAttribute("style","width:"+(totalsize - filedata.byteLength)/totalsize*100+"%") 
+            document.getElementsByName(file["name"])[1].innerHTML=(totalsize - filedata.byteLength)/totalsize*100
+
       
           }
           peer.send("done")
@@ -171,7 +171,7 @@
 
   }
   function displayonUI(fname, fsize) {    //this will not allow multifile  with same name i will change it in future to allow multiple file wiht same name
-    document.getElementById("filetable").innerHTML += `<tr><td>${fname}<tdfadsf><td>${fsize}</td><td><button name='${fname}'>remove</button></td><td><div class="progress">  <div class="progress-bar" role="progressbar" style="width: 0.1%;"  id="${fname}"  </div></div></td><tr>`
+    document.getElementById("filetable").innerHTML += `<tr name="${fname}"><td>${fname}<tdfadsf><td>${fsize}</td><td><button id='${fname}' onclick='removefilefromarray(this)'>remove</button></td><td><div class="progress">  <div class="progress-bar" role="progressbar" style="width: 0.1%;"  name ="${fname}"  </div></div></td><tr>`
   }
   function isfilealreadyselected(filetocheck) {
     isduplicate = false
@@ -195,8 +195,18 @@
     console.log(selectedfilearray)
   }
 
-function removefilefromarray(){
-
+function removefilefromarray(idofele){
+  idofele=idofele.id
+pos=0
+Object.values(selectedfilearray).forEach(file=>{
+  if(file["name"]==idofele){
+    console.log(pos)
+    selectedfilearray.splice(pos)
+  }
+  pos++
+})
+document.getElementsByName(idofele)[0].remove()
+console.log(selectedfilearray)
 }
 </script>
 
