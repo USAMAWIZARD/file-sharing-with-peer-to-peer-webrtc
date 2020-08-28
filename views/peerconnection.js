@@ -38,7 +38,7 @@ peer.on("data", (data) => {
       filerecived = [];
     } else {
       filerecived.push(data);
-      console.log(data);
+    //  console.log(data);
       //   console.log("andar aaya")
     }
   }
