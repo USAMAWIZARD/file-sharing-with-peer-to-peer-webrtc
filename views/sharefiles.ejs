@@ -152,7 +152,7 @@
       file.arrayBuffer().then(
         filedata => {
           peer.send(file["name"])
-          chunksize = 100 * 1024
+          chunksize = 30 * 1024
           totalsize = filedata.byteLength
           while (filedata.byteLength) {
             tosend = filedata.slice(0, chunksize)
