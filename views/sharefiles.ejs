@@ -69,7 +69,7 @@
   <input type="file" multiple="multiple" id="f1" onchange="addfilestoarray()"></input>
   <button onclick="sendfiles()">send</button>
 
-  
+
 </body>
 
 <script>
@@ -154,16 +154,26 @@
           peer.send(file["name"])
           chunksize = 30 * 1024
           totalsize = filedata.byteLength
+          a = Date.now()-1000
+          console.log(Date.now())
           while (filedata.byteLength) {
             tosend = filedata.slice(0, chunksize)
             filedata = filedata.slice(chunksize, filedata.byteLength)
             peer.send(tosend)
-            
-            document.getElementsByName(file["name"])[1].setAttribute("style","width:"+(totalsize - filedata.byteLength)/totalsize*100+"%") 
-            document.getElementsByName(file["name"])[1].innerHTML=(totalsize - filedata.byteLength)/totalsize*100
 
+            if (Date.now() - a >= 100) {
+              document.getElementsByName(file["name"])[1].setAttribute("style", "width:" + (totalsize - filedata.byteLength) / totalsize * 100 + "%")
+              document.getElementsByName(file["name"])[1].innerHTML = (totalsize - filedata.byteLength) / totalsize * 100
+            //  console.log((totalsize - filedata.byteLength) / totalsize * 100)
+              a = Date.now()
       
+            }
+            else {
+            }
+
           }
+          console.log(Date.now())
+          
           peer.send("done")
 
         })
@@ -195,19 +205,19 @@
     console.log(selectedfilearray)
   }
 
-function removefilefromarray(idofele){
-  idofele=idofele.id
-pos=0
-Object.values(selectedfilearray).forEach(file=>{
-  if(file["name"]==idofele){
-    console.log(pos)
-    selectedfilearray.splice(pos,1)
+  function removefilefromarray(idofele) {
+    idofele = idofele.id
+    pos = 0
+    Object.values(selectedfilearray).forEach(file => {
+      if (file["name"] == idofele) {
+        console.log(pos)
+        selectedfilearray.splice(pos, 1)
+      }
+      pos++
+    })
+    document.getElementsByName(idofele)[0].remove()
+    console.log(selectedfilearray)
   }
-  pos++
-})
-document.getElementsByName(idofele)[0].remove()
-console.log(selectedfilearray)
-}
 </script>
 
 </html>
