@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
   <div class="id">
     <p>Your id</p>
     <h1 class="myid" id="myid"></h1>
@@ -58,10 +59,11 @@
   
     </table>
   </div>
-
+  <p id="caller" style="display:none"></p>
   <div class="popup" id="popup">
-    <p>User wants to connect to you</p>
-    <Button class="ok" onclick="popup()">OK</Button>
+    <p id="appenduserid"> </p>
+    <Button class="ok" onclick="socket.emit('accept',[document.getElementById('caller').innerHTML,document.getElementsByName('myid')[0].value]);showconnecting();isinitiator=true; loadjs()">OK</Button>
+    
     <Button class="cancel" onclick="popup()">cancel</Button>
   </div>
 
@@ -90,7 +92,9 @@
 
   socket.on("makeconnection", function (hisid) {
     document.getElementById("caller").innerHTML = hisid
-    document.getElementById("displaypopup").click()
+    document.getElementById("appenduserid").innerHTML=hisid
+      popup()
+
 
   })
   socket.on("accepted", whosrequest => {
