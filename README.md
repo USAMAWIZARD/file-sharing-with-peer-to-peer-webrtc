@@ -27,7 +27,7 @@ You can share data between devices  without the need of any specific application
 ## How to use?
 **sending the connect request** <br>
 every user is provided with the id one can enter that id into other devices to whcih he/she wish to connect with.after entering the id and clicking the connect button a connect request will be sent to that user whoes id was entered in the input box.<br>
-**accepting the connecting request on the other device **<br>
+**accepting the connecting request on the other device** <br>
 Other user can accept the request or reject the request of the connection.after accepting user can select file from the select button and the table will be displayed with all the files that you have selected you can also remove or add more file in the table.<br>
 after selecting the files you can click on the send button to initiate the the file transmission of the file to the other end.
 
