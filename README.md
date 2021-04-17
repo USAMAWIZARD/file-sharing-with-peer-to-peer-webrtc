@@ -7,8 +7,7 @@ but every divice have browser buildin so why not share the files browser to brow
 
 
 ## Screenshots
-
-![image](https://user-images.githubusercontent.com/47350008/114985665-eb26fe80-9e47-11eb-87b5-f144d7874b1e.png)
+![image](https://user-images.githubusercontent.com/47350008/115103222-115ea400-9f05-11eb-83b6-5ce64617551f.png)
 
 
 ## Tech/framework used
