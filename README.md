@@ -3,7 +3,7 @@ This web application  share file between browsers using peer to peer WebRTC as a
 
 # Motivation
 Many a times we have to share file between devices but you have to download cetain application on the the devices for sharing the files.
-but every divice have browser buildin so why not share the files browser to browser.This project connects the devices peer to peer to share the data between devices.
+but every device have browser builtin so why not share the files browser to browser.This project connects the devices peer to peer to share the data between devices.
 
 
 ## Screenshots
