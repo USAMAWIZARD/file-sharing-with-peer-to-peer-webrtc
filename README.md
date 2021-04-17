@@ -39,7 +39,6 @@ after selecting the files you can click on the send button to initiate the the f
 
 https://www.npmjs.com/package/simple-peer
 
-Anything else that seems useful
 
 ## License
 
