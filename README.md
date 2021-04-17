@@ -23,6 +23,11 @@ but every divice have browser buildin so why not share the files browser to brow
 ## Features
 You can share data between devices  without the need of any specific application.
 
+## How does it Works
+Both the clients who want to communicate are given an id (five digit number) ethier of them can type that number into the divice they want to connect to.after entering the the divice id into ohter device and clicking connect button an SDP (Session Discripting Protcol) will be genrated SDP contaians all the information of the ICE  Candidates (Internet Connectivity Establishment) avalialable to him.This SDP will be shared with the other client using socket connection the other client will accept the SDP and genrate his SDP informaiton and share it back to the sender.
+and then both will be connected with a peer to peer connection without any intervention of the server.they can select files and click send to send those file to other client those files will be devided into chunks and the small buffers will be sent to other end after all the chunks are recived browser will downlod the file into system.
+
+
 
 ## How to use?
 **sending the connect request** <br>
