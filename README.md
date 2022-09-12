@@ -6,8 +6,9 @@ Many a times we have to share file between devices but you have to download ceta
 but every device have browser builtin so why not share the files browser to browser.This project connects the devices peer to peer to share the data between devices.
 
 
-## Screenshots
-![image](https://user-images.githubusercontent.com/47350008/115103222-115ea400-9f05-11eb-83b6-5ce64617551f.png)
+## Demo
+https://user-images.githubusercontent.com/47350008/189680778-98e444d4-46e8-4dbe-9f2e-cd1eeb3ad176.mp4
+
 
 
 ## Tech/framework used
